@@ -16,7 +16,7 @@
     </div>
 
     <!-- knop voor het maken van een nieuw record -->
-     <div class="row mt-3 d-flex justify-content-center">
+    <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10 text-begin text-danger">
             <a href="<?= URLROOT; ?>/HorlogesController/create"
                 class="btn btn-warning"
@@ -38,7 +38,8 @@
                         <th>Materiaal</th>
                         <th>Type</th>
                         <th>Kenmerk</th>
-                        <th class="text-center">Verwijder</th>
+                        <th>Wijzig</th>
+                        <th>Verwijder</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,8 +52,14 @@
                             <td><?= $horloge->Type; ?></td>
                             <td><?= $horloge->UniekKenmerk; ?></td>
                             <td class="text-center">
+                                <a href="<?= URLROOT; ?>/HorlogesController/update/<?= $horloge->Id; ?>">
+                                    <i class="bi bi-pencil-fill text-success"></i>
+                                </a>
+                            </td>
+
+                            <td class="text-center">
                                 <a href="<?= URLROOT; ?>/HorlogesController/delete/<?= $horloge->Id; ?>"
-                                   onclick="return confirm('Weet je zeker dat je dit horloge wilt verwijderen?');">
+                                    onclick="return confirm('Weet je zeker dat je dit horloge wilt verwijderen?');">
                                     <i class="bi bi-trash3-fill text-danger"></i>
                                 </a>
                             </td>
@@ -61,7 +68,9 @@
                 </tbody>
             </table>
 
-            <a href="<?= URLROOT; ?>/homepages/index"><i class="bi bi-arrow-left"></i></a>
+            <a href="<?= URLROOT; ?>/homepages/index">
+                <i class="bi bi-arrow-left"></i>
+            </a>
         </div>
     </div>
 </div>

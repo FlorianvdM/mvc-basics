@@ -49,7 +49,7 @@ class SmartphoneController extends BaseController
         /**
          * Roep de index methode direct aan om de bevestiging te tonen
          */
-        $this->index('flex', 'Record is verwijderd');
+        $this->index('flex', 'De smartphone is verwijderd');
     }
 
     public function create()
@@ -75,7 +75,7 @@ class SmartphoneController extends BaseController
             } 
             else {
                 $data['display'] = 'flex';
-                $data['message'] = 'De gegevens zijn toegevoegd.';
+                $data['message'] = 'De smartphone is toegevoegd.';
 
                 $this->smartphoneModel->create($_POST);
 
@@ -83,5 +83,48 @@ class SmartphoneController extends BaseController
             }
         }
         $this->view('smartphone/create', $data);
+    }
+
+    public function update($Id=NULL)
+    {
+        $data = [
+            'title' => 'Wijzig smartphone',
+            'display' => 'none',
+            'message' => '',
+        ];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (empty($_POST['merk']) ||
+                empty($_POST['model']) ||
+                empty($_POST['prijs']) ||
+                empty($_POST['geheugen']) ||
+                empty($_POST['besturingssysteem']) ||
+                empty($_POST['schermgrootte']) ||
+                empty($_POST['releasedatum']) ||
+                empty($_POST['megapixels'])) {
+
+                // laat de <div> tag met terugkoppeling naar de gebruiker zien
+                $data['display'] = 'flex';
+                $data['message'] = 'Vul alle velden in.';
+                $data['color'] = 'danger';
+            }
+            else {
+                // hier komt de code om de geweijzigde data op te slaan in de database
+
+                $result = $this->smartphoneModel->update($_POST);
+
+                // laat de <div> tag met terugkoppeling naar de gebruiker zien in de view
+                $data['display'] = 'flex';
+                $data['message'] = 'De gegevens zijn succesvol gewijzigd.';
+                $data['color'] = 'success';
+                header("Refresh:3; url='/SmartphoneController/index'");
+                
+            }
+        }
+
+        // laat de model de data ophalen uit de database
+        $data['smartphone'] = $this->smartphoneModel->getSmartphoneById($Id);
+
+        $this->view('smartphone/update', $data);
     }
 }

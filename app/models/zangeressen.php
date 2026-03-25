@@ -13,12 +13,12 @@ class zangeressen
     {
         // Voeg Id toe aan de SELECT zodat de delete-knop werkt
         $sql = 'SELECT  Id
-                       ,Naam
-                       ,NettoWaarde
-                       ,Land
-                       ,Leeftijd
-                       ,BekendsteNummer
-                       ,Debuutjaar as Debuut
+                        ,Naam
+                        ,NettoWaarde
+                        ,Land
+                        ,Leeftijd
+                        ,BekendsteNummer
+                        ,Debuutjaar as Debuut
                 FROM    zangeressen
                 ORDER BY NettoWaarde DESC';
 
