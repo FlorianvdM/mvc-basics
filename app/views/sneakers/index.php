@@ -15,15 +15,11 @@
         </div>
     </div>
 
-    <!-- knop voor het maken van een nieuw record -->
-     <div class="row mt-3 d-flex justify-content-center">
+    <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10 text-begin text-danger">
-            <a href="<?= URLROOT; ?>/SneakersController/create"
-                class="btn btn-warning"
-                role="button">
-                Nieuwe Sneaker
-            </a>
+            <a href="<?= URLROOT; ?>/SneakersController/create" class="btn btn-warning" role="button">Nieuwe sneaker</a>
         </div>
+    </div>
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
@@ -37,32 +33,32 @@
                         <th>Materiaal</th>
                         <th>Gewicht</th>
                         <th>Releasedatum</th>
-                        <th>Wijzig</th>
-                        <th>Verwijder</th>
+                        <th class="text-center">Wijzig</th>
+                        <th class="text-center">Verwijder</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($data['result'] as $sneaker) : ?>
-                        <tr>
-                            <td><?= $sneaker->Merk; ?></td>
-                            <td><?= $sneaker->Model; ?></td>
-                            <td><?= $sneaker->Type; ?></td>
-                            <td><?= $sneaker->Prijs; ?></td>
-                            <td><?= $sneaker->Materiaal; ?></td>
-                            <td><?= $sneaker->Gewicht; ?></td>
-                            <td><?= $sneaker->Releasedatum; ?></td>
-                            <td class="text-center">
-                                <a href="<?= URLROOT; ?>/SneakersController/update/<?= $sneaker->Id; ?>">
-                                    <i class="bi bi-pencil-fill text-success"></i>
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <a href="<?= URLROOT; ?>/SneakersController/delete/<?= $sneaker->Id; ?>"
-                                    onclick="return confirm('Weet je zeker dat je deze sneaker wilt verwijderen?');">
-                                    <i class="bi bi-trash3-fill text-danger"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?= $sneaker->Merk; ?></td>
+                        <td><?= $sneaker->Model; ?></td>
+                        <td><?= $sneaker->Type; ?></td>
+                        <td><?= $sneaker->Prijs; ?></td>
+                        <td><?= $sneaker->Materiaal; ?></td>
+                        <td><?= $sneaker->Gewicht; ?></td>
+                        <td><?= $sneaker->Releasedatum; ?></td>
+                        <td class="text-center">
+                            <a href="<?= URLROOT; ?>/SneakersController/update/<?= $sneaker->Id; ?>">
+                                <i class="bi bi-pencil-fill text-success"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="<?= URLROOT; ?>/SneakersController/delete/<?= $sneaker->Id; ?>"
+                                onclick="return confirm('Weet je zeker dat je deze sneaker wilt verwijderen?');">
+                                <i class="bi bi-trash3-fill text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>

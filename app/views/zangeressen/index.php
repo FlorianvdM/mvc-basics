@@ -15,15 +15,12 @@
         </div>
     </div>
 
-    <!-- knop voor het maken van een nieuw record -->
-     <div class="row mt-3 d-flex justify-content-center">
+    <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10 text-begin text-danger">
-            <a href="<?= URLROOT; ?>/ZangeressenController/create"
-                class="btn btn-warning"
-                role="button">
-                Nieuwe Zangeres
-            </a>
+            <a href="<?= URLROOT; ?>/ZangeressenController/create" class="btn btn-warning" role="button">Nieuwe
+                zangeres</a>
         </div>
+    </div>
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
@@ -36,25 +33,31 @@
                         <th>Leeftijd</th>
                         <th>Bekendste Nummer</th>
                         <th>Debuut</th>
+                        <th class="text-center">Wijzig</th>
                         <th class="text-center">Verwijder</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($data['result'] as $zangeres) : ?>
-                        <tr>
-                            <td><?= $zangeres->Naam; ?></td>
-                            <td><?= $zangeres->NettoWaarde; ?></td>
-                            <td><?= $zangeres->Land; ?></td>
-                            <td><?= $zangeres->Leeftijd; ?></td>
-                            <td><?= $zangeres->BekendsteNummer; ?></td>
-                            <td><?= $zangeres->Debuut; ?></td>
-                            <td class="text-center">
-                                <a href="<?= URLROOT; ?>/ZangeressenController/delete/<?= $zangeres->Id; ?>"
-                                    onclick="return confirm('Weet je zeker dat je deze zangeres wilt verwijderen?');">
-                                    <i class="bi bi-trash3-fill text-danger"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?= $zangeres->Naam; ?></td>
+                        <td><?= $zangeres->NettoWaarde; ?></td>
+                        <td><?= $zangeres->Land; ?></td>
+                        <td><?= $zangeres->Leeftijd; ?></td>
+                        <td><?= $zangeres->BekendsteNummer; ?></td>
+                        <td><?= $zangeres->Debuut; ?></td>
+                        <td class="text-center">
+                            <a href="<?= URLROOT; ?>/ZangeressenController/update/<?= $zangeres->Id; ?>">
+                                <i class="bi bi-pencil-fill text-success"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="<?= URLROOT; ?>/ZangeressenController/delete/<?= $zangeres->Id; ?>"
+                                onclick="return confirm('Weet je zeker dat je deze zangeres wilt verwijderen?');">
+                                <i class="bi bi-trash3-fill text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>

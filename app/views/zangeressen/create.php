@@ -1,15 +1,16 @@
 <?php require_once APPROOT . '/views/includes/header.php'; ?>
 
 <div class="container">
-    <div class="row mt-3 d-flex justify-content-center">
-        <div class="col-10">
-            <h3><?= $data['title']; ?></h3>
+    <div class="row mt-4 d-flex justify-content-center">
+        <div class="col-6">
+            <h3 class="text-success"><?php echo $data['title']; ?></h3>
         </div>
     </div>
 
-    <div class="row mt-3 d-<?php echo $data['display']; ?> justify-content-center">
-        <div class="col-10 text-begin text-primary">
-            <div class="alert alert-success" role="alert">
+    <!-- Terugkoppeling naar de gebruiker (success only) -->
+    <div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+        <div class="col-6">
+            <div class="alert alert-<?= $data['color'] ?? 'success'; ?>" role="alert">
                 <?= $data['message']; ?>
             </div>
         </div>
@@ -17,35 +18,52 @@
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-6">
-            <form action="<?= URLROOT; ?>/ZangeressenController/create" method="POST">
-                <div class="form-group">
-                    <label for="naam">Naam:</label>
-                    <input type="text" class="form-control" id="naam" name="naam" required>
+            <form action="<?= URLROOT; ?>/ZangeressenController/create" method="post">
+                <div class="mb-3">
+                    <label for="naam" class="form-label">Naam</label>
+                    <input name="naam" type="text" class="form-control <?= isset($data['errors']['naam']) ? 'is-invalid' : ''; ?>" id="naam" value="<?= $_POST['naam'] ?? ''; ?>">
+                    <?php if (isset($data['errors']['naam'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['naam']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="nettoWaarde">Netto Waarde:</label>
-                    <input type="number" class="form-control" id="nettoWaarde" name="nettoWaarde" required>
+                <div class="mb-3">
+                    <label for="waarde" class="form-label">Netto Waarde (miljoen)</label>
+                    <input name="waarde" type="number" class="form-control <?= isset($data['errors']['waarde']) ? 'is-invalid' : ''; ?>" id="waarde" value="<?= $_POST['waarde'] ?? ''; ?>">
+                    <?php if (isset($data['errors']['waarde'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['waarde']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="land">Land:</label>
-                    <input type="text" class="form-control" id="land" name="land" required>
+                <div class="mb-3">
+                    <label for="land" class="form-label">Land</label>
+                    <input name="land" type="text" class="form-control <?= isset($data['errors']['land']) ? 'is-invalid' : ''; ?>" id="land" value="<?= $_POST['land'] ?? ''; ?>">
+                    <?php if (isset($data['errors']['land'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['land']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="leeftijd">Leeftijd:</label>
-                    <input type="number" class="form-control" id="leeftijd" name="leeftijd" required>
+                <div class="mb-3">
+                    <label for="leeftijd" class="form-label">Leeftijd</label>
+                    <input name="leeftijd" type="number" class="form-control <?= isset($data['errors']['leeftijd']) ? 'is-invalid' : ''; ?>" id="leeftijd" value="<?= $_POST['leeftijd'] ?? ''; ?>">
+                    <?php if (isset($data['errors']['leeftijd'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['leeftijd']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="bekendsteNummer">Bekendste Nummer:</label>
-                    <input type="text" class="form-control" id="bekendsteNummer" name="bekendsteNummer" required>
+                <div class="mb-3">
+                    <label for="nummer" class="form-label">Bekendste Nummer</label>
+                    <input name="nummer" type="text" class="form-control <?= isset($data['errors']['nummer']) ? 'is-invalid' : ''; ?>" id="nummer" value="<?= $_POST['nummer'] ?? ''; ?>">
+                    <?php if (isset($data['errors']['nummer'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['nummer']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="debuut">Debuut:</label>
-                    <input type="date" class="form-control" id="debuut" name="debuut" required>
+                <div class="mb-3">
+                    <label for="jaar" class="form-label">Debuutjaar</label>
+                    <input name="jaar" type="number" class="form-control <?= isset($data['errors']['jaar']) ? 'is-invalid' : ''; ?>" id="jaar" value="<?= $_POST['jaar'] ?? ''; ?>">
+                    <?php if (isset($data['errors']['jaar'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['jaar']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <button type="submit" class="btn btn-primary">Toevoegen</button>
+                <button type="submit" class="btn btn-primary">Verstuur</button>
             </form>
-
-            <a href="<?= URLROOT; ?>/Homepages/index"><i class="bi bi-arrow-left"></i></a>
+            <a href="<?= URLROOT; ?>/ZangeressenController/index"><i class="bi bi-arrow-left"></i></a>
         </div>
     </div>
 </div>

@@ -1,6 +1,4 @@
 <?php require_once APPROOT . '/views/includes/header.php'; ?>
-<?php // var_dump($_POST); ?>
-<?php // var_dump($data['sneaker']); ?>
 
 <div class="container">
     <div class="row mt-4 d-flex justify-content-center">
@@ -9,9 +7,10 @@
         </div>
     </div>
 
-    <div class="row mt-3 d-<?php echo $data['display']; ?> justify-content-center">
-        <div class="col-6 text-begin text-primary">
-            <div class="alert alert-<?= $data['color']; ?>" role="alert">
+    <!-- Terugkoppeling naar de gebruiker (success only) -->
+    <div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+        <div class="col-6">
+            <div class="alert alert-<?= $data['color'] ?? 'success'; ?>" role="alert">
                 <?= $data['message']; ?>
             </div>
         </div>
@@ -19,41 +18,69 @@
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-6">
-            <form action="<?= URLROOT; ?>/SneakersController/update" method="POST">
+            <form action="<?= URLROOT; ?>/SneakersController/update" method="post">
+                <input type="hidden" name="id" value="<?= $data['sneaker']->Id; ?>">
                 <div class="mb-3">
-                    <label for="merk">Merk:</label>
-                    <input name="merk" type="text" class="form-control" id="merk" value="<?= $_POST['merk'] ?? $data['sneaker']->Merk; ?>" >
+                    <label for="merk" class="form-label">Merk</label>
+                    <input name="merk" type="text" class="form-control <?= isset($data['errors']['merk']) ? 'is-invalid' : ''; ?>" id="merk" value="<?= $_POST['merk'] ?? $data['sneaker']->Merk; ?>">
+                    <?php if (isset($data['errors']['merk'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['merk']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="model">Model:</label>
-                    <input name="model" type="text" class="form-control" id="model" value="<?= $_POST['model'] ?? $data['sneaker']->Model; ?>" >
+                <div class="mb-3">
+                    <label for="model" class="form-label">Model</label>
+                    <input name="model" type="text" class="form-control <?= isset($data['errors']['model']) ? 'is-invalid' : ''; ?>" id="model"
+                        value="<?= $_POST['model'] ?? $data['sneaker']->Model; ?>">
+                    <?php if (isset($data['errors']['model'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['model']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="type">Type:</label>
-                    <input name="type" type="text" class="form-control" id="type" value="<?= $_POST['type'] ?? $data['sneaker']->Type; ?>" >
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <input name="type" type="text" class="form-control <?= isset($data['errors']['type']) ? 'is-invalid' : ''; ?>" id="type" value="<?= $_POST['type'] ?? $data['sneaker']->Type; ?>">
+                    <?php if (isset($data['errors']['type'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['type']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="prijs">Prijs:</label>
-                    <input name="prijs" type="number" class="form-control" id="prijs" value="<?= $_POST['prijs'] ?? $data['sneaker']->Prijs; ?>" >
+                <div class="mb-3">
+                    <label for="prijs" class="form-label">Prijs</label>
+                    <input name="prijs" type="text" class="form-control <?= isset($data['errors']['prijs']) ? 'is-invalid' : ''; ?>" id="prijs"
+                        value="<?= $_POST['prijs'] ?? $data['sneaker']->Prijs; ?>">
+                    <?php if (isset($data['errors']['prijs'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['prijs']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="materiaal">Materiaal:</label>
-                    <input name="materiaal" type="text" class="form-control" id="materiaal" value="<?= $_POST['materiaal'] ?? $data['sneaker']->Materiaal; ?>" >
+                <div class="mb-3">
+                    <label for="materiaal" class="form-label">Materiaal</label>
+                    <input name="materiaal" type="text" class="form-control <?= isset($data['errors']['materiaal']) ? 'is-invalid' : ''; ?>" id="materiaal"
+                        value="<?= $_POST['materiaal'] ?? $data['sneaker']->Materiaal; ?>">
+                    <?php if (isset($data['errors']['materiaal'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['materiaal']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="gewicht">Gewicht:</label>
-                    <input name="gewicht" type="number" class="form-control" id="gewicht" value="<?= $_POST['gewicht'] ?? $data['sneaker']->Gewicht; ?>" >
+                <div class="mb-3">
+                    <label for="gewicht" class="form-label">Gewicht</label>
+                    <input name="gewicht" type="text" class="form-control <?= isset($data['errors']['gewicht']) ? 'is-invalid' : ''; ?>" id="gewicht"
+                        value="<?= $_POST['gewicht'] ?? $data['sneaker']->Gewicht; ?>">
+                    <?php if (isset($data['errors']['gewicht'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['gewicht']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="releasedatum">Releasedatum:</label>
-                    <input name="releasedatum" type="date" class="form-control" id="releasedatum" value="<?= $_POST['releasedatum'] ?? $data['sneaker']->Releasedatum; ?>" >
+                <div class="mb-3">
+                    <label for="releasedatum" class="form-label">Releasedatum</label>
+                    <input name="releasedatum" type="date" class="form-control <?= isset($data['errors']['releasedatum']) ? 'is-invalid' : ''; ?>" id="releasedatum"
+                        value="<?= $_POST['releasedatum'] ?? $data['sneaker']->Releasedatum; ?>">
+                    <?php if (isset($data['errors']['releasedatum'])) : ?>
+                        <div class="invalid-feedback"><?= $data['errors']['releasedatum']; ?></div>
+                    <?php endif; ?>
                 </div>
-                <input type="hidden" name="Id" value="<?= $_POST['Id'] ?? $data['sneaker']->Id; ?>">
                 <button type="submit" class="btn btn-primary">Verstuur</button>
             </form>
-
-            <a href="<?= URLROOT; ?>/homepages/index"><i class="bi bi-arrow-left"></i></a>
+            <a href="<?= URLROOT; ?>/SneakersController/index" class="mt-3 d-block">
+                <i class="bi bi-arrow-left"></i>
+            </a>
         </div>
     </div>
 </div>
-<?php require APPROOT . '/views/includes/footer.php'; ?>
+
+<?php require_once APPROOT . '/views/includes/footer.php'; ?>

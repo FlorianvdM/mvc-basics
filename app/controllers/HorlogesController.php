@@ -11,14 +11,8 @@ class HorlogesController extends BaseController
 
     public function index($display = 'none', $message = '')
     {
-        /**
-         * Haal de resultaten van de model binnen
-         */
         $result = $this->horlogeModel->getAllHorloges();
 
-        /**
-         * Het $data-array geeft informatie mee aan de view-pagina
-         */
         $data = [
             'title'   => 'Overzicht Horloges',
             'display' => $display,
@@ -26,100 +20,144 @@ class HorlogesController extends BaseController
             'result'  => $result
         ];
 
-        /**
-         * Met de view-method uit de BaseController-class wordt de view
-         * aangeroepen
-         */
         $this->view('horloges/index', $data);
     }
 
     public function delete($Id)
     {
-        /**
-         * Roep de delete-methode aan van het model
-         */
         $this->horlogeModel->delete($Id);
-
-        /**
-         * Stuur een header mee om na 3 seconden terug te keren naar de index
-         * Let op: URLROOT moet goed gedefinieerd zijn in je config
-         */
         header('Refresh:3; url=' . URLROOT . '/HorlogesController/index');
-
-        /**
-         * Roep de index methode direct aan om de bevestiging te tonen
-         */
         $this->index('flex', 'Het horloge is verwijderd');
     }
 
     public function create()
     {
         $data = [
-            'title' => 'Nieuw Horloge toevoegen',
+            'title'   => 'Nieuw horloge toevoegen',
             'display' => 'none',
-            'message' => ''
+            'message' => '',
+            'errors'  => []
         ];
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (empty($_POST['merk']) || 
-                empty($_POST['model']) || 
-                empty($_POST['prijs']) || 
-                empty($_POST['materiaal']) || 
-                empty($_POST['type']) || 
-                empty($_POST['uniek_kenmerk'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                $data['display'] = 'flex';
-                $data['message'] = 'Vul alle velden in.';
+            $errors = [];
+
+            if (empty(trim($_POST['merk']))) {
+                $errors['merk'] = 'Voer een merk in';
+            } elseif (strlen($_POST['merk']) > 50) {
+                $errors['merk'] = 'Max 50 tekens';
             }
-            else {
-                $data['display'] = 'flex';
-                $data['message'] = 'Horloge is toegevoegd.';
 
+            if (empty(trim($_POST['model']))) {
+                $errors['model'] = 'Voer een model in';
+            } elseif (strlen($_POST['model']) > 50) {
+                $errors['model'] = 'Max 50 tekens';
+            }
+
+            if (empty($_POST['prijs'])) {
+                $errors['prijs'] = 'Voer een prijs in';
+            } elseif (!is_numeric($_POST['prijs']) || $_POST['prijs'] <= 0) {
+                $errors['prijs'] = 'Voer een geldige prijs in groter dan 0';
+            }
+
+            if (empty(trim($_POST['materiaal']))) {
+                $errors['materiaal'] = 'Voer een materiaal in';
+            } elseif (strlen($_POST['materiaal']) > 50) {
+                $errors['materiaal'] = 'Max 50 tekens';
+            }
+
+            if (empty(trim($_POST['type']))) {
+                $errors['type'] = 'Voer een type in';
+            } elseif (strlen($_POST['type']) > 50) {
+                $errors['type'] = 'Max 50 tekens';
+            }
+
+            if (empty(trim($_POST['kenmerk']))) {
+                $errors['kenmerk'] = 'Voer een kenmerk in';
+            } elseif (strlen($_POST['kenmerk']) > 100) {
+                $errors['kenmerk'] = 'Max 100 tekens';
+            }
+
+            if (!empty($errors)) {
+                $data['errors'] = $errors;
+            } else {
                 $this->horlogeModel->create($_POST);
-
-                    header('Refresh:3; url=' . URLROOT . '/HorlogesController/index');
+                $data['display'] = 'flex';
+                $data['message'] = 'Het horloge is opgeslagen';
+                $data['color'] = 'success';
+                header('Refresh:3; url=' . URLROOT . '/HorlogesController/index');
             }
         }
         $this->view('horloges/create', $data);
     }
 
-    public function update($Id = NULL)
+    public function update($id = NULL)
     {
+        $id = $id ?? $_POST['id'] ?? NULL;
+
         $data = [
-            'title' => 'Wijzig Horloge',
+            'title'   => 'Wijzig horloge',
             'display' => 'none',
             'message' => '',
+            'errors'  => [],
+            'horloge' => $this->horlogeModel->getHorlogeById($id)
         ];
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (empty($_POST['merk']) || 
-                empty($_POST['model']) || 
-                empty($_POST['prijs']) || 
-                empty($_POST['materiaal']) || 
-                empty($_POST['type']) || 
-                empty($_POST['uniek_kenmerk'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                // laat de <div> tag met terugkoppeling naar de gebruiker zien
-                $data['display'] = 'flex';
-                $data['message'] = 'Vul alle velden in.';
-                $data['color'] = 'danger';
+            $errors = [];
+
+            if (empty(trim($_POST['merk']))) {
+                $errors['merk'] = 'Voer een merk in';
+            } elseif (strlen($_POST['merk']) > 50) {
+                $errors['merk'] = 'Max 50 tekens';
             }
-            else {
-                // hier komt de code om de geweijzigde data op te slaan in de database
 
-                $result = $this->horlogeModel->update($_POST);
+            if (empty(trim($_POST['model']))) {
+                $errors['model'] = 'Voer een model in';
+            } elseif (strlen($_POST['model']) > 50) {
+                $errors['model'] = 'Max 50 tekens';
+            }
 
-                // laat de <div> tag met terugkoppeling naar de gebruiker zien in de view
+            if (empty($_POST['prijs'])) {
+                $errors['prijs'] = 'Voer een prijs in';
+            } elseif (!is_numeric($_POST['prijs']) || $_POST['prijs'] <= 0) {
+                $errors['prijs'] = 'Voer een geldige prijs in groter dan 0';
+            }
+
+            if (empty(trim($_POST['materiaal']))) {
+                $errors['materiaal'] = 'Voer een materiaal in';
+            } elseif (strlen($_POST['materiaal']) > 50) {
+                $errors['materiaal'] = 'Max 50 tekens';
+            }
+
+            if (empty(trim($_POST['type']))) {
+                $errors['type'] = 'Voer een type in';
+            } elseif (strlen($_POST['type']) > 50) {
+                $errors['type'] = 'Max 50 tekens';
+            }
+
+            if (empty(trim($_POST['kenmerk']))) {
+                $errors['kenmerk'] = 'Voer een kenmerk in';
+            } elseif (strlen($_POST['kenmerk']) > 100) {
+                $errors['kenmerk'] = 'Max 100 tekens';
+            }
+
+            if (!empty($errors)) {
+                $data['errors'] = $errors;
+            } else {
+                $this->horlogeModel->updateHorloge($_POST);
+                header('Refresh:3; url=' . URLROOT . '/HorlogesController/index');
                 $data['display'] = 'flex';
-                $data['message'] = 'De gegevens zijn succesvol gewijzigd.';
+                $data['message'] = 'De gegevens zijn gewijzigd';
                 $data['color'] = 'success';
-                header("Refresh:3; url='/HorlogesController/index'");
-
+                
+                $data['horloge'] = $this->horlogeModel->getHorlogeById($id);
             }
         }
-        
-        // laat de model de data ophalen uit de database
-        $data['horloge'] = $this->horlogeModel->getHorlogeById($Id);
 
         $this->view('horloges/update', $data);
     }
