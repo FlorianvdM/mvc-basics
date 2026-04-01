@@ -1,0 +1,138 @@
+/* Custom CSS for MVC Basics - Royal Blue & Graphite Theme */
+
+:root {
+    --primary-color: #2563eb; /* Royal Blue */
+    --primary-hover: #1d4ed8;
+    --secondary-color: #475569; /* Slate 600 */
+    --secondary-hover: #334155;
+    --accent-color: #fbbf24; /* Amber Accent */
+    --bg-dark: #2d3436; /* Dark Graphite */
+    --bg-light: #f1f2f6; /* Soft Light Gray */
+    --text-dark: #2d3436;
+    --text-light: #ffffff;
+    --text-muted: #636e72;
+}
+
+/* Base styling */
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 90px;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+}
+
+/* Wrapper for sticky footer */
+.wrapper {
+    flex: 1 0 auto;
+    margin-bottom: 4rem; /* Substantial space before footer */
+}
+
+/* Navbar refinement - more personal, less generic */
+.navbar {
+    background-color: #2cabcf !important;
+    border-bottom: 4px solid #fb2424;
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-light) !important;
+}
+
+.navbar-brand i {
+    color: var(--accent-color);
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    opacity: 0.8;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem !important;
+}
+
+.nav-link:hover {
+    opacity: 1;
+    color: var(--accent-color) !important;
+}
+
+/* Footer refinement */
+footer {
+    flex-shrink: 0;
+    background-color: #2cabcf;
+    color: var(--text-light);
+    border-top: 1px solid #ff0000;
+    padding: 2.5rem 0;
+    font-size: 0.95rem;
+}
+
+/* Buttons - less "modern/bubble" look, more solid industrial feel */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* Card aesthetics - simpler, more standard */
+.homepage-card {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    background: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.homepage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.homepage-card .card-title {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Table refinement */
+.table {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.table thead th {
+    background-color: #eee;
+    color: #444;
+    border-bottom: 2px solid #ccc;
+    padding: 1rem;
+}

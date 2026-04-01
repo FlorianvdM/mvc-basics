@@ -84,11 +84,13 @@
                         <div class="invalid-feedback"><?= $data['errors']['megapixels']; ?></div>
                     <?php endif; ?>
                 </div>
-                <button type="submit" class="btn btn-primary">Verstuur</button>
+                <div class="d-flex justify-content-between mt-3 mb-5">
+                    <button type="submit" class="btn btn-primary">Verstuur</button>
+                    <a href="<?= URLROOT; ?>/SmartphoneController/index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Terug naar overzicht
+                    </a>
+                </div>
             </form>
-            <a href="<?= URLROOT; ?>/SmartphoneController/index" class="mt-3 d-block">
-                <i class="bi bi-arrow-left"></i>
-            </a>
         </div>
     </div>
 </div>
